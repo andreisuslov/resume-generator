@@ -1,9 +1,6 @@
 # Dependencies
 node_modules/
 
-# Generated content
-generated-content/
-
 # System files
 .DS_Store
 .DS_Store?
