@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "generate-pdf": "node generate-pdf.js"
+    "generate-pdf": "node js/generate-pdf.js"
   },
   "keywords": [],
   "author": "",
