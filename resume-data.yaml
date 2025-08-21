@@ -1,0 +1,64 @@
+name: John Doe
+contact:
+  phone: (123) 456-7890
+  linkedin: https://www.linkedin.com/in/johndoeplumber/
+  github: https://github.com/johndoeplumber
+  email: john.doe.plumber@email.com
+work_experience:
+  - company: Pipe Masters Inc.
+    location: Franklin, USA
+    title: Master Plumber
+    dates: June 2018 - Present
+    organization-tagline: This company does pipes.
+    responsibilities:
+      - Lead a team of 4 journeyman plumbers on large-scale commercial projects, including new constructions and major renovations.
+      - Read and interpret complex blueprints and schematics to plan plumbing system layouts and installations.
+      - Specialize in diagnosing and resolving difficult issues in water supply systems, including pressure irregularities and water hammer problems.
+      - Train and mentor apprentices on proper techniques, safety protocols, and adherence to the Uniform Plumbing Code (UPC).
+      - Manage project inventory, order supplies, and ensure all materials meet project specifications and quality standards.
+      - Perform final inspections and pressure tests on all new installations to guarantee a leak-free and fully operational system.
+  - company: Reliable Rooter Services
+    location: Clinton, USA
+    title: Journeyman Plumber
+    dates: August 2014 - June 2018
+    organization-tagline: Awesome plumbing for cheap.
+    responsibilities:
+      - Installed, maintained, and repaired pipes and fixtures (sinks, toilets, water heaters, showers) in over 500 residential homes.
+      - Responded to emergency service calls for leaks, burst pipes, and severe clogs, effectively minimizing water damage for clients.
+      - Utilized power snakes, hydro-jetters, and camera inspection tools to efficiently clear and diagnose drain and sewer line blockages.
+      - Provided clear, detailed estimates to customers for repair and installation jobs.
+      - Adhered strictly to local building codes and safety regulations on every job site.
+volunteering:
+  - organization: Community Build Project
+    location: Washington, USA
+    title: Volunteer Plumber
+    dates: Summer 2022
+    organization-tagline: Helping others with purpose.
+    responsibilities:
+      - Contributed 40+ hours to install complete plumbing systems in two new homes for a local low-income housing initiative.
+      - Collaborated with electricians and carpenters to coordinate the rough-in and finishing stages of the plumbing installation.
+      - Taught basic plumbing maintenance skills to the new homeowners, empowering them with foundational knowledge.
+education:
+  - institution: Anytown Vocational & Technical College
+    location: Springfield, USA
+    graduation_date: June 2014
+    details: "Plumbing Technology Program Certificate | Graduated with Honors | OSHA 10 Certified"
+skills:
+  technologies:
+    - Master Plumber License (State of MA, #12345)
+    - Journeyman Plumber License
+    - Backflow Prevention Assembly Tester Certification
+    - OSHA 10-Hour Construction Safety
+  hard_skills:
+    - Residential & Commercial Plumbing
+    - Pipe Fitting & Installation (Copper, PEX, PVC)
+    - Fixture Installation & Repair
+    - Water Heater Installation (Tank & Tankless)
+    - Gas Line Installation & Repair
+    - Drain Cleaning & Hydro Jetting
+    - Leak Detection & Repair
+    - Blueprint Reading & Interpretation
+    - Code Compliance (UPC/IPC)
+    - Soldering & Brazing
+    - Customer Service & Quoting
+  language_skills: Fluent in English, Conversational Spanish

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrei Suslov - Resume</title>
+<style>
+    /* 
+     * PRINT STYLES
+     * This block ensures the document prints correctly without browser margins.
+     */
+    @media print {
+        /* Use @page to control the actual page margins */
+        @page {
+            size: 8.5in 11in;
+            margin: 0; /* This removes the browser's default print margins */
+        }
+
+        /* Reset HTML and BODY for printing */
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #fff; /* Ensure background is white */
+            box-shadow: none; /* Remove the screen shadow */
+        }
+        
+        /* 
+         * The BODY element now becomes the full page.
+         * Its PADDING will act as the margins for your content.
+         * We do NOT set a fixed width/height here anymore.
+        */
+        body {
+            /* These padding values from your original style now act as the page margins */
+            padding-left: 0.55in;
+            padding-right: 0.55in;
+            font-size: 10pt; /* Good practice to set a base font size for print */
+        }
+
+        /* No special rules are needed for .container in print anymore */
+        .container {
+            box-shadow: none;
+        }
+        
+        .padding-element {
+            height: 0.25in;
+        }
+    }
+
+
+    /* 
+     * SCREEN STYLES
+     * These styles make the document look like a page on a screen.
+     */
+
+    /* Use the HTML element for the page background and for centering */
+    html {
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Aligns page to the top */
+        min-height: 100%;
+        /*padding: 20px 0;  Adds some space above and below the page */
+    }
+
+    /* Set the BODY to be the 8.5x11 page itself */
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        line-height: 1.3;
+        color: #333;
+        background: #fff; /* White paper background */
+        padding-left: 0.55in;
+        padding-right: 0.55in;
+        width: 8.5in;
+        height: 11in;
+        box-sizing: border-box;
+    }
+
+    /* The CONTAINER now fills the body */
+    .container {
+        width: 100%;
+        height: calc(100% - 0.5in); /* Adjust height to account for padding elements */
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    .padding-element {
+        height: 0.25in;
+    }
+
+    /* General Styling */
+    .header {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .header h1 {
+        margin: 0;
+        font-size: 22pt;
+        font-weight: bold;
+    }
+    .header .contact-info {
+        margin-top: 4px;
+        font-size: 10pt;
+    }
+    .contact-info a {
+        color: #1155CC;
+        text-decoration: none;
+    }
+    .contact-info a:hover {
+        text-decoration: underline;
+    }
+    .section-title {
+        font-weight: bold;
+        font-size: 11pt;
+        border-bottom: 1px solid #000;
+        padding-bottom: 3px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }
+    .job, .education, .volunteering {
+        margin-bottom: 15px;
+    }
+    .job-header, .degree-header, .volunteer-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11pt;
+        margin-bottom: 3px;
+    }
+    .job-title, .degree, .volunteer-title {
+        font-weight: bold;
+        font-style: italic;
+    }
+    .company-name, .school-name, .org-name {
+        font-weight: normal;
+    }
+    .location, .date {
+        font-style: italic;
+        color: #555;
+        white-space: nowrap; /* Prevents date/location from wrapping */
+    }
+    .description {
+        margin: 0;
+        padding-left: 18px;
+        font-size: 10.5pt;
+    }
+    .description li {
+        margin-bottom: 4px;
+        text-align: justify;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+    }
+    .company-tagline {
+        font-style: italic;
+        list-style-type: none;
+        padding-left: 0;
+        margin-left: -18px; /* Align with the section start */
+        margin-bottom: 6px;
+    }
+    .education .details {
+        font-size: 10.5pt;
+    }
+    .skills-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10.5pt;
+    }
+    .skills-table td {
+        vertical-align: top;
+        padding: 2px 0;
+    }
+    .skills-table td:first-child {
+        width: 120px;
+        font-weight: bold;
+    }
+    .skills-table thead {
+        position: absolute;
+        left: -9999px;
+    }
+</style>
+</head>
+<body>
+
+    <div class="padding-element"></div>
+    <div class="container" id="resume-container">
+        <div class="header">
+            <h1 id="resume-name" aria-label="Resume name">Loading...</h1>
+            <div class="contact-info" id="contact-info">
+                <!-- Contact info will be loaded here -->
+            </div>
+        </div>
+
+        <div class="section-title">WORK EXPERIENCE</div>
+        <div id="work-experience-container">
+            <!-- Work experience jobs will be loaded here -->
+        </div>
+
+        <div class="section-title">VOLUNTEERING</div>
+        <div id="volunteering-container">
+            <!-- Volunteering roles will be loaded here -->
+        </div>
+        
+        <div class="section-title">EDUCATION</div>
+        <div id="education-container">
+            <!-- Education details will be loaded here -->
+        </div>
+
+        <div class="section-title">SKILLS & CERTIFICATIONS</div>
+        <table class="skills-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Skills</th>
+                </tr>
+            </thead>
+            <tbody id="skills-tbody">
+                <!-- Skills will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="padding-element"></div>
+
+    <!-- Script includes -->
+    <script src="js/js-yaml.min.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+</html>
