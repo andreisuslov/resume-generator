@@ -37,20 +37,16 @@ window.onload = async () => {
     }
 };
 
-function populateResume(data) {
-    console.log("DEBUG: populateResume() function started.");
-    
-    // A helper function to safely set content and warn if the element is missing
-    const setContent = (id, content) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.innerHTML = content;
-        } else {
-            console.warn(`DEBUG: Element with ID '${id}' not found in the HTML.`);
-        }
-    };
+const setContent = (id, content) => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.innerHTML = content;
+    } else {
+        console.warn(`DEBUG: Element with ID '${id}' not found in the HTML.`);
+    }
+};
 
-    // Populate Header
+const populateHeader = (data) => {
     console.log("DEBUG: Populating header...");
     setContent('resume-name', `<h1 class="js-resizable-text">${data.name}</h1>`);
     if (data.contact) {
@@ -59,50 +55,55 @@ function populateResume(data) {
     } else {
         console.warn("DEBUG: 'contact' data not found in YAML.");
     }
-    
-    // Populate Work Experience
+};
+
+const createJobElement = (job) => {
+    const jobDiv = document.createElement('div');
+    jobDiv.className = 'job';
+    let descHtml = '<ul class="description">';
+    if (job['organization-tagline']) {
+        descHtml += `<li class="company-tagline js-resizable-text"><i>${job['organization-tagline']}</i></li>`;
+    }
+    job.responsibilities?.forEach(r => descHtml += `<li class="js-resizable-text">${r}</li>`);
+    descHtml += '</ul>';
+    jobDiv.innerHTML = `<div class="job-header js-resizable-text"><span class="company-name">${job.company}</span><span class="location">${job.location}</span></div><div class="job-header js-resizable-text"><span class="job-title">${job.title}</span><span class="date">${job.dates}</span></div>${descHtml}`;
+    return jobDiv;
+};
+
+const populateWorkExperience = (data) => {
     const workContainer = document.getElementById('work-experience-container');
     if (workContainer && data.work_experience) {
         console.log(`DEBUG: Populating Work Experience with ${data.work_experience.length} items.`);
-        data.work_experience.forEach(job => {
-            const jobDiv = document.createElement('div');
-            jobDiv.className = 'job';
-            let descHtml = '<ul class="description">';
-            // ### FIX: Changed job.tagline to job['organization-tagline'] to match YAML
-            if (job['organization-tagline']) {
-                descHtml += `<li class="company-tagline js-resizable-text"><i>${job['organization-tagline']}</i></li>`;
-            }
-            job.responsibilities?.forEach(r => descHtml += `<li class="js-resizable-text">${r}</li>`);
-            descHtml += '</ul>';
-            jobDiv.innerHTML = `<div class="job-header js-resizable-text"><span class="company-name">${job.company}</span><span class="location">${job.location}</span></div><div class="job-header js-resizable-text"><span class="job-title">${job.title}</span><span class="date">${job.dates}</span></div>${descHtml}`;
-            workContainer.appendChild(jobDiv);
-        });
+        data.work_experience.forEach(job => workContainer.appendChild(createJobElement(job)));
     } else {
         console.warn("DEBUG: Could not find 'work-experience-container' element or 'work_experience' data in YAML.");
     }
+};
 
-    // Populate Volunteering
+const createVolunteerElement = (role) => {
+    const volunteerDiv = document.createElement('div');
+    volunteerDiv.className = 'volunteering';
+    let descHtml = '<ul class="description">';
+    if (role['organization-tagline']) {
+        descHtml += `<li class="company-tagline js-resizable-text"><i>${role['organization-tagline']}</i></li>`;
+    }
+    role.responsibilities?.forEach(r => descHtml += `<li class="js-resizable-text">${r}</li>`);
+    descHtml += '</ul>';
+    volunteerDiv.innerHTML = `<div class="volunteer-header js-resizable-text"><span class="org-name">${role.organization}</span><span class="location">${role.location}</span></div><div class="volunteer-header js-resizable-text"><span class="volunteer-title">${role.title}</span><span class="date">${role.dates}</span></div>${descHtml}`;
+    return volunteerDiv;
+};
+
+const populateVolunteering = (data) => {
     const volunteeringContainer = document.getElementById('volunteering-container');
     if (volunteeringContainer && data.volunteering) {
         console.log(`DEBUG: Populating Volunteering with ${data.volunteering.length} items.`);
-        data.volunteering.forEach(role => {
-            const volunteerDiv = document.createElement('div');
-            volunteerDiv.className = 'volunteering';
-            let descHtml = '<ul class="description">';
-             // ### FIX: Changed role.tagline to role['organization-tagline'] to match YAML
-            if (role['organization-tagline']) {
-                descHtml += `<li class="company-tagline js-resizable-text"><i>${role['organization-tagline']}</i></li>`;
-            }
-            role.responsibilities?.forEach(r => descHtml += `<li class="js-resizable-text">${r}</li>`);
-            descHtml += '</ul>';
-            volunteerDiv.innerHTML = `<div class="volunteer-header js-resizable-text"><span class="org-name">${role.organization}</span><span class="location">${role.location}</span></div><div class="volunteer-header js-resizable-text"><span class="volunteer-title">${role.title}</span><span class="date">${role.dates}</span></div>${descHtml}`;
-            volunteeringContainer.appendChild(volunteerDiv);
-        });
+        data.volunteering.forEach(role => volunteeringContainer.appendChild(createVolunteerElement(role)));
     } else {
         console.warn("DEBUG: Could not find 'volunteering-container' element or 'volunteering' data in YAML.");
     }
+};
 
-    // Populate Education
+const populateEducation = (data) => {
     const educationContainer = document.getElementById('education-container');
     if (educationContainer && data.education) {
         console.log(`DEBUG: Populating Education with ${data.education.length} items.`);
@@ -115,44 +116,42 @@ function populateResume(data) {
     } else {
         console.warn("DEBUG: Could not find 'education-container' element or 'education' data in YAML.");
     }
+};
 
-    // =================================================================
-    // DYNAMIC SKILLS SECTION
-    // =================================================================
+const populateSkills = (data) => {
     const skillsTbody = document.getElementById('skills-tbody');
     if (skillsTbody && data.skills) {
         console.log("DEBUG: Populating Skills dynamically.");
-        const skills = data.skills;
-        let skillsHtml = '';
-
-        // A helper function to format the key for display
         const formatSkillTitle = (key) => {
-            const spaced = key.replace(/_/g, ' '); // 'hard_skills' -> 'hard skills'
-            const words = spaced.split(' '); // 'hard skills' -> ['hard', 'skills']
-            // Capitalize the first letter of each word and join back
+            const spaced = key.replace(/_/g, ' ');
+            const words = spaced.split(' ');
             return words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         };
 
-        // Loop over every key in the 'skills' object
-        for (const key in skills) {
-            if (Object.hasOwn(skills, key)) {
+        let skillsHtml = '';
+        for (const key in data.skills) {
+            if (Object.hasOwn(data.skills, key)) {
                 const title = formatSkillTitle(key);
-                let value = skills[key];
-
-                // If the value is an array, join it into a string. Otherwise, use as is.
-                const displayValue = Array.isArray(value) ? value.join('; ') : value;
-
-                // Append a new table row for this skill category with fixed width for title cell
+                const displayValue = Array.isArray(data.skills[key]) ? data.skills[key].join('; ') : data.skills[key];
                 skillsHtml += `<tr><td class="js-resizable-text" style="width: 150px; white-space: nowrap;">${title}:</td><td class="js-resizable-text">${displayValue}</td></tr>`;
             }
         }
-        skillsTbody.innerHTML = skillsHtml; // Set the combined HTML
+        skillsTbody.innerHTML = skillsHtml;
     } else {
         console.warn("DEBUG: Could not find 'skills-tbody' element or 'skills' data in YAML.");
     }
+};
+
+function populateResume(data) {
+    console.log("DEBUG: populateResume() function started.");
+    
+    populateHeader(data);
+    populateWorkExperience(data);
+    populateVolunteering(data);
+    populateEducation(data);
+    populateSkills(data);
 
     console.log("DEBUG: Content population complete. Calling adjustContentToPage().");
-    // Call the resizing logic after content is on the page.
     adjustContentToPage();
 }
 
